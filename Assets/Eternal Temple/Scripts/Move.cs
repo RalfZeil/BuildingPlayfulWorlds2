@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace commanastationwww.eternaltemple{
-public class Move : MonoBehaviour {
+namespace commanastationwww.eternaltemple
+{
+	public class Move : MonoBehaviour {
 
 	private float speed = 7f;
 	private float gravity = 800f;

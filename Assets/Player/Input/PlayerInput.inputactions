@@ -6,13 +6,13 @@
             "id": "90150c75-629a-4d12-992d-b9c5eaeac9be",
             "actions": [
                 {
-                    "name": "Look Horizontal",
-                    "type": "Button",
+                    "name": "Move Camera",
+                    "type": "Value",
                     "id": "71ef3d94-cdb1-4ea7-96fa-f3df1f0a7361",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Zoom",
@@ -26,8 +26,63 @@
             ],
             "bindings": [
                 {
+                    "name": "A/D",
+                    "id": "caa451ea-7936-42cb-a28f-2422c33c0cb2",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move Camera",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "ba6ffe82-8e9f-4914-a8e6-a356717c849b",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "ec80300f-6881-4efd-9d94-b2d8c9f9e14b",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "3b2b834f-7b3a-4823-aee5-d08433fc7b85",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c56136c9-888b-4a49-b498-1f93feacc79c",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
-                    "id": "3240852d-c690-448e-97b1-3b410e96e3dc",
+                    "id": "ff221d21-a955-448d-8465-9f306f0a10ac",
                     "path": "<Mouse>/scroll/y",
                     "interactions": "",
                     "processors": "",
@@ -35,39 +90,6 @@
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "8346146b-5c6f-49dd-96e9-58d2a34f642b",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look Horizontal",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "6d691e68-5f21-4179-af64-cabd865bee6d",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look Horizontal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "31580cfa-7fad-4466-9260-7cc8a75793a4",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look Horizontal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }

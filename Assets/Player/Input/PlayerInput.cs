@@ -28,13 +28,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             ""id"": ""90150c75-629a-4d12-992d-b9c5eaeac9be"",
             ""actions"": [
                 {
-                    ""name"": ""Look Horizontal"",
-                    ""type"": ""Button"",
+                    ""name"": ""Move Camera"",
+                    ""type"": ""Value"",
                     ""id"": ""71ef3d94-cdb1-4ea7-96fa-f3df1f0a7361"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Zoom"",
@@ -48,8 +48,63 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
+                    ""name"": ""A/D"",
+                    ""id"": ""caa451ea-7936-42cb-a28f-2422c33c0cb2"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move Camera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ba6ffe82-8e9f-4914-a8e6-a356717c849b"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ec80300f-6881-4efd-9d94-b2d8c9f9e14b"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""3b2b834f-7b3a-4823-aee5-d08433fc7b85"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c56136c9-888b-4a49-b498-1f93feacc79c"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
-                    ""id"": ""3240852d-c690-448e-97b1-3b410e96e3dc"",
+                    ""id"": ""ff221d21-a955-448d-8465-9f306f0a10ac"",
                     ""path"": ""<Mouse>/scroll/y"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -57,39 +112,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""8346146b-5c6f-49dd-96e9-58d2a34f642b"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look Horizontal"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""6d691e68-5f21-4179-af64-cabd865bee6d"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look Horizontal"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""31580cfa-7fad-4466-9260-7cc8a75793a4"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look Horizontal"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -98,7 +120,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
 }");
         // PlayerActionMap
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
-        m_PlayerActionMap_LookHorizontal = m_PlayerActionMap.FindAction("Look Horizontal", throwIfNotFound: true);
+        m_PlayerActionMap_MoveCamera = m_PlayerActionMap.FindAction("Move Camera", throwIfNotFound: true);
         m_PlayerActionMap_Zoom = m_PlayerActionMap.FindAction("Zoom", throwIfNotFound: true);
     }
 
@@ -159,13 +181,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     // PlayerActionMap
     private readonly InputActionMap m_PlayerActionMap;
     private IPlayerActionMapActions m_PlayerActionMapActionsCallbackInterface;
-    private readonly InputAction m_PlayerActionMap_LookHorizontal;
+    private readonly InputAction m_PlayerActionMap_MoveCamera;
     private readonly InputAction m_PlayerActionMap_Zoom;
     public struct PlayerActionMapActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActionMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LookHorizontal => m_Wrapper.m_PlayerActionMap_LookHorizontal;
+        public InputAction @MoveCamera => m_Wrapper.m_PlayerActionMap_MoveCamera;
         public InputAction @Zoom => m_Wrapper.m_PlayerActionMap_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
@@ -176,9 +198,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerActionMapActionsCallbackInterface != null)
             {
-                @LookHorizontal.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnLookHorizontal;
-                @LookHorizontal.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnLookHorizontal;
-                @LookHorizontal.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnLookHorizontal;
+                @MoveCamera.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
+                @MoveCamera.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
+                @MoveCamera.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
                 @Zoom.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnZoom;
@@ -186,9 +208,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             m_Wrapper.m_PlayerActionMapActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @LookHorizontal.started += instance.OnLookHorizontal;
-                @LookHorizontal.performed += instance.OnLookHorizontal;
-                @LookHorizontal.canceled += instance.OnLookHorizontal;
+                @MoveCamera.started += instance.OnMoveCamera;
+                @MoveCamera.performed += instance.OnMoveCamera;
+                @MoveCamera.canceled += instance.OnMoveCamera;
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
@@ -198,7 +220,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public PlayerActionMapActions @PlayerActionMap => new PlayerActionMapActions(this);
     public interface IPlayerActionMapActions
     {
-        void OnLookHorizontal(InputAction.CallbackContext context);
+        void OnMoveCamera(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
     }
 }

@@ -75,11 +75,7 @@ public class HideGroup : MonoBehaviour {
 					collisionEntriesCounter = 0;								
 			}
 		}
-		
-			void Update () {
-				
-		}
 
-}
+	}
 }
 

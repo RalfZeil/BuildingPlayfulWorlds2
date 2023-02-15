@@ -35,20 +35,11 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Zoom"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""4f2b0f51-3155-48ee-8d6b-df216438b1ff"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""A/D"",
+                    ""name"": ""A/D & Scroll"",
                     ""id"": ""caa451ea-7936-42cb-a28f-2422c33c0cb2"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -101,17 +92,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Move Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ff221d21-a955-448d-8465-9f306f0a10ac"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -121,7 +101,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // PlayerActionMap
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
         m_PlayerActionMap_MoveCamera = m_PlayerActionMap.FindAction("Move Camera", throwIfNotFound: true);
-        m_PlayerActionMap_Zoom = m_PlayerActionMap.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,13 +161,11 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActionMap;
     private IPlayerActionMapActions m_PlayerActionMapActionsCallbackInterface;
     private readonly InputAction m_PlayerActionMap_MoveCamera;
-    private readonly InputAction m_PlayerActionMap_Zoom;
     public struct PlayerActionMapActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActionMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveCamera => m_Wrapper.m_PlayerActionMap_MoveCamera;
-        public InputAction @Zoom => m_Wrapper.m_PlayerActionMap_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -201,9 +178,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveCamera.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
-                @Zoom.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnZoom;
-                @Zoom.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnZoom;
-                @Zoom.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_PlayerActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -211,9 +185,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveCamera.started += instance.OnMoveCamera;
                 @MoveCamera.performed += instance.OnMoveCamera;
                 @MoveCamera.canceled += instance.OnMoveCamera;
-                @Zoom.started += instance.OnZoom;
-                @Zoom.performed += instance.OnZoom;
-                @Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -221,6 +192,5 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IPlayerActionMapActions
     {
         void OnMoveCamera(InputAction.CallbackContext context);
-        void OnZoom(InputAction.CallbackContext context);
     }
 }

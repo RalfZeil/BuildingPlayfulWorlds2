@@ -13,20 +13,11 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Zoom",
-                    "type": "PassThrough",
-                    "id": "4f2b0f51-3155-48ee-8d6b-df216438b1ff",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "A/D",
+                    "name": "A/D & Scroll",
                     "id": "caa451ea-7936-42cb-a28f-2422c33c0cb2",
                     "path": "2DVector",
                     "interactions": "",
@@ -79,17 +70,6 @@
                     "action": "Move Camera",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "ff221d21-a955-448d-8465-9f306f0a10ac",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }

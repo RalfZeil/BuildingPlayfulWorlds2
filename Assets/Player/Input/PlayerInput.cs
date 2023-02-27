@@ -35,6 +35,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Move Unit"",
+                    ""type"": ""Value"",
+                    ""id"": ""4c094c79-ddde-4925-ae77-50a5e91fd699"",
+                    ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Move Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""173a97f1-6bfc-4941-9365-9892672a19dd"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move Unit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +121,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // PlayerActionMap
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
         m_PlayerActionMap_MoveCamera = m_PlayerActionMap.FindAction("Move Camera", throwIfNotFound: true);
+        m_PlayerActionMap_MoveUnit = m_PlayerActionMap.FindAction("Move Unit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,11 +182,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActionMap;
     private IPlayerActionMapActions m_PlayerActionMapActionsCallbackInterface;
     private readonly InputAction m_PlayerActionMap_MoveCamera;
+    private readonly InputAction m_PlayerActionMap_MoveUnit;
     public struct PlayerActionMapActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActionMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveCamera => m_Wrapper.m_PlayerActionMap_MoveCamera;
+        public InputAction @MoveUnit => m_Wrapper.m_PlayerActionMap_MoveUnit;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -178,6 +201,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveCamera.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
+                @MoveUnit.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveUnit;
+                @MoveUnit.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveUnit;
+                @MoveUnit.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveUnit;
             }
             m_Wrapper.m_PlayerActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -185,6 +211,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveCamera.started += instance.OnMoveCamera;
                 @MoveCamera.performed += instance.OnMoveCamera;
                 @MoveCamera.canceled += instance.OnMoveCamera;
+                @MoveUnit.started += instance.OnMoveUnit;
+                @MoveUnit.performed += instance.OnMoveUnit;
+                @MoveUnit.canceled += instance.OnMoveUnit;
             }
         }
     }
@@ -192,5 +221,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IPlayerActionMapActions
     {
         void OnMoveCamera(InputAction.CallbackContext context);
+        void OnMoveUnit(InputAction.CallbackContext context);
     }
 }

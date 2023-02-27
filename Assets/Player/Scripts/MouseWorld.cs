@@ -7,6 +7,7 @@ public class MouseWorld : MonoBehaviour
     public static MouseWorld instance;
 
     [SerializeField] private LayerMask mousePlaneLayerMask;
+    [SerializeField] private LayerMask itemLayerMask;
 
 
     private void Awake()
@@ -20,5 +21,4 @@ public class MouseWorld : MonoBehaviour
         Physics.Raycast(ray, out RaycastHit raycastHitLayerMask, float.MaxValue, instance.mousePlaneLayerMask);
         return raycastHitLayerMask.point;
     }
-
 }

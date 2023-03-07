@@ -21,6 +21,7 @@ public class Slot : MonoBehaviour
         if(currentAssignedItem == null)
         {
             currentAssignedItem = newItem;
+            SetupItem(currentAssignedItem);
         }
     }
 

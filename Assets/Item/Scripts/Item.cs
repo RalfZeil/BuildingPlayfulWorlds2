@@ -17,9 +17,4 @@ public class Item : MonoBehaviour, IPickupable
     {
         UseItem.Invoke();
     }
-
-    private void OnMouseDown()
-    {
-        PickUp();
-    }
 }

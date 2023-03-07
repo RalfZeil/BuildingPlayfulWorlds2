@@ -11,6 +11,13 @@ public class Item : MonoBehaviour, IPickupable
     public void PickUp()
     {
         EventManager<Item>.RaiseEvent(EventType.OnItemPickup, this);
+        gameObject.SetActive(false);
+    }
+
+    public void PlaceDown(Vector3 pos)
+    {
+        gameObject.transform.position = pos;
+        gameObject.SetActive(true);
     }
 
     public void Use()

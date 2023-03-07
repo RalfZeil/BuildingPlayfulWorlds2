@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -11,10 +9,17 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         if(Instance == null) { Instance = this; }
-        else { Debug.Log("Instance of InventoryManager is already assigned"); }
+        else { Debug.LogWarning("Instance of InventoryManager is already assigned"); } 
+    }
 
-
+    private void OnEnable()
+    {
         EventManager<Item>.AddListener(EventType.OnItemPickup, PickupItem);
+    }
+
+    private void OnDisable()
+    {
+        EventManager<Item>.RemoveListener(EventType.OnItemPickup, PickupItem);
     }
 
     public void PickupItem(Item item)

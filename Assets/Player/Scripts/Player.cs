@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,10 +14,11 @@ public class Player : MonoBehaviour
 
             if(pickupableObject != null)
             {
-                pickupableObject.PickUp();
+                if (GameManager.PlayerInputManager.playerInput.PlayerActionMap.Interact.WasPerformedThisFrame())
+                {
+                    pickupableObject.PickUp();
+                }
             }
-
-            
         }
     }
     

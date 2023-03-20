@@ -19,11 +19,11 @@ public class GameManager : MonoBehaviour
     private void StartManagers()
     {
         AudioManager = new();
-        PlayerInputManager = new PlayerInputManager();
+        PlayerInputManager = new();
 
         activeManagers = new Manager[]{
             AudioManager,
-            PlayerInputManager
+            PlayerInputManager,
         };
 
         foreach (Manager manager in activeManagers)

@@ -12,7 +12,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject[] floorPrefabs;
     [SerializeField] private GameObject[] wallPrefabs;
 
-
+    #region Settings
     [SerializeField] private int gridWidth = 100;
     [SerializeField] private int gridHeight = 100;
 
@@ -22,6 +22,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private int numRooms = 10;
 
     [SerializeField] private int scale;
+    #endregion
 
     [SerializeField] private Dictionary<Vector3Int, TileType> dungeon = new();
 
@@ -56,6 +57,7 @@ public class DungeonGenerator : MonoBehaviour
 
         dungeon.Clear();
         roomList.Clear();
+        allInstantiatedPrefabs.Clear();
     }
 
     private void AllocateRooms()
@@ -171,6 +173,10 @@ public class DungeonGenerator : MonoBehaviour
             }
             allInstantiatedPrefabs.Add(obj);
         }
+    }
+
+    private void GenerateGrid()
+    {
     }
 
 

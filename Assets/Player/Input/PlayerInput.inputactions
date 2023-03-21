@@ -15,22 +15,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Move Unit",
+                    "name": "Interact",
                     "type": "Value",
                     "id": "4c094c79-ddde-4925-ae77-50a5e91fd699",
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "8e193603-5e00-4ca9-8ecc-07b57641f105",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -93,17 +84,6 @@
                     "name": "",
                     "id": "173a97f1-6bfc-4941-9365-9892672a19dd",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move Unit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b29220b1-cb70-443d-8f1f-aab35030f534",
-                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
 
     private Vector3 targetPosistion;
 
-    private void Move(Vector3 targetPosistion)
+    public void Move(Vector3 targetPosistion)
     {
         this.targetPosistion = targetPosistion;
     }
@@ -33,9 +33,9 @@ public class Unit : MonoBehaviour
             unitAnimator.SetWalking(false);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.PlayerInputManager.playerInput.PlayerActionMap.Interact.WasPerformedThisFrame())
         {
-            Move(MouseWorld.GetPosition());
+            MouseWorld.InteractWithClickedObject(this);
         }
     }
 }

@@ -13,10 +13,35 @@ public class MouseWorld : MonoBehaviour
         instance = this;
     }
 
-    public static Vector3 GetPosition()
+    private void LateUpdate()
+    {
+        IInteractable interactable = GetInteractableObject();
+
+        interactable?.HighLight();
+    }
+
+    public static void InteractWithClickedObject(Unit unit)
+    {
+        IInteractable interactable = GetInteractableObject();
+
+        interactable?.Interact(unit);
+    }
+
+    private static IInteractable GetInteractableObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit raycastHitLayerMask, float.MaxValue, instance.mousePlaneLayerMask);
-        return raycastHitLayerMask.point;
+        Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue);
+
+        try
+        {
+            IInteractable interactable = raycastHit.transform.GetComponent<IInteractable>();
+
+            if (interactable != null) { return interactable; }
+            else { return null; }
+        }
+        catch
+        {
+            return null;
+        }    
     }
 }

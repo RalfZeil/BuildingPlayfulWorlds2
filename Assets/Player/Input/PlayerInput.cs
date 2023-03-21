@@ -37,22 +37,13 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Move Unit"",
+                    ""name"": ""Interact"",
                     ""type"": ""Value"",
                     ""id"": ""4c094c79-ddde-4925-ae77-50a5e91fd699"",
                     ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""8e193603-5e00-4ca9-8ecc-07b57641f105"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -118,17 +109,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move Unit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b29220b1-cb70-443d-8f1f-aab35030f534"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -141,7 +121,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         // PlayerActionMap
         m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
         m_PlayerActionMap_MoveCamera = m_PlayerActionMap.FindAction("Move Camera", throwIfNotFound: true);
-        m_PlayerActionMap_MoveUnit = m_PlayerActionMap.FindAction("Move Unit", throwIfNotFound: true);
         m_PlayerActionMap_Interact = m_PlayerActionMap.FindAction("Interact", throwIfNotFound: true);
     }
 
@@ -203,14 +182,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActionMap;
     private IPlayerActionMapActions m_PlayerActionMapActionsCallbackInterface;
     private readonly InputAction m_PlayerActionMap_MoveCamera;
-    private readonly InputAction m_PlayerActionMap_MoveUnit;
     private readonly InputAction m_PlayerActionMap_Interact;
     public struct PlayerActionMapActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActionMapActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveCamera => m_Wrapper.m_PlayerActionMap_MoveCamera;
-        public InputAction @MoveUnit => m_Wrapper.m_PlayerActionMap_MoveUnit;
         public InputAction @Interact => m_Wrapper.m_PlayerActionMap_Interact;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
@@ -224,9 +201,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveCamera.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
                 @MoveCamera.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveCamera;
-                @MoveUnit.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveUnit;
-                @MoveUnit.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveUnit;
-                @MoveUnit.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnMoveUnit;
                 @Interact.started -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionMapActionsCallbackInterface.OnInteract;
@@ -237,9 +211,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveCamera.started += instance.OnMoveCamera;
                 @MoveCamera.performed += instance.OnMoveCamera;
                 @MoveCamera.canceled += instance.OnMoveCamera;
-                @MoveUnit.started += instance.OnMoveUnit;
-                @MoveUnit.performed += instance.OnMoveUnit;
-                @MoveUnit.canceled += instance.OnMoveUnit;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
@@ -250,7 +221,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     public interface IPlayerActionMapActions
     {
         void OnMoveCamera(InputAction.CallbackContext context);
-        void OnMoveUnit(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
     }
 }

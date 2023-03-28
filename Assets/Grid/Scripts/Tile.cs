@@ -22,8 +22,11 @@ public class Tile : MonoBehaviour, IInteractable
 
     public void Interact(Unit unit)
     {
-        unit.GoToTile(this);
-        Debug.Log("Moving to Tile");
+        if(unit.GetActionPoints() > 0 && unit.currentTile != this)
+        {
+            unit.GoToTile(this);
+            unit.RemoveActionPoint(1);
+        }
     }
 
     public void HighLight()

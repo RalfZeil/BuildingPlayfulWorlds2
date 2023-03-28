@@ -5,6 +5,9 @@ using UnityEngine;
 public enum EventType
 {
     OnItemPickup = 0,
+    OnUnitChange = 1,
+    OnInteracted = 2,
+    OnUpdateTurn = 3,
 
 }
 

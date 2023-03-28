@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IInteractable
 {
-    
-
     [SerializeField] private UnitAnimator unitAnimator;
 
     [SerializeField] private float moveSpeed = 4f;
@@ -12,9 +10,16 @@ public class Unit : MonoBehaviour
     [SerializeField] private float stoppingDistance = 0.1f;
 
     private Vector3 targetPosistion;
-
     private UnitMovement unitMovement;
-    [SerializeField] private Tile currentTile;
+
+
+    public Tile currentTile { get; private set; }
+    [SerializeField] private bool isPlayerUnit;
+
+    public bool isSelected;
+
+    private int maxActionPoints = 2;
+    private int actionPoints;
 
     private void Start()
     {
@@ -24,6 +29,18 @@ public class Unit : MonoBehaviour
 
         transform.position = currentTile.transform.position;
         targetPosistion = transform.position;
+
+        actionPoints = maxActionPoints;
+    }
+
+    private void OnEnable()
+    {
+        EventManager<int>.AddListener(EventType.OnUpdateTurn, ResetActionPoints);
+    }
+
+    private void OnDisable()
+    {
+        EventManager<int>.RemoveListener(EventType.OnUpdateTurn, ResetActionPoints);
     }
 
     public void Move(Vector3 targetPosistion)
@@ -55,10 +72,33 @@ public class Unit : MonoBehaviour
         {
             unitAnimator.SetWalking(false);
         }
+    }
 
-        if (GameManager.PlayerInputManager.playerInput.PlayerActionMap.Interact.WasPerformedThisFrame())
+    public void RemoveActionPoint(int amount)
+    {
+        actionPoints -= amount;
+    }
+
+    public int GetActionPoints()
+    {
+        return actionPoints;
+    }
+
+    private void ResetActionPoints(int turnNumber)
+    {
+        actionPoints = maxActionPoints;
+    }
+
+    public void Interact(Unit unit)
+    {
+        if(unit != this)
         {
-            MouseWorld.InteractWithClickedObject(this);
+            UnitActionSystem.instance.HandleSelectedUnit(this);
         }
+    }
+
+    public void HighLight()
+    {
+        
     }
 }

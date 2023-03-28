@@ -15,7 +15,11 @@ public class Item : MonoBehaviour, IPickupable, IInteractable
 
     public void Interact(Unit unit)
     {
-        PickUp();
+        if (unit.GetActionPoints() > 0)
+        {
+            PickUp();
+            unit.RemoveActionPoint(1);
+        }
     }
 
     public void PickUp()

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour, IInteractable
 {
+    [SerializeField] public bool startTile;
+
     public int gridPosX;
     public int gridPosZ;
 
@@ -20,7 +22,7 @@ public class Tile : MonoBehaviour, IInteractable
 
     public void Interact(Unit unit)
     {
-        unit.Move(transform.position);
+        unit.GoToTile(this);
         Debug.Log("Moving to Tile");
     }
 

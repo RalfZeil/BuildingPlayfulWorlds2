@@ -11,6 +11,8 @@ public class DungeonGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject[] floorPrefabs;
     [SerializeField] private GameObject[] wallPrefabs;
+    [SerializeField] private GameObject startFloorPrefab;
+    private bool spawnedStartFloor = false;
 
     #region Settings
     [SerializeField] private int gridWidth = 100;
@@ -162,8 +164,18 @@ public class DungeonGenerator : MonoBehaviour
         foreach (KeyValuePair<Vector3Int, TileType> kv in dungeon)
         {
             GameObject obj = null;
+            GameObject floorPrefab;
 
-            GameObject floorPrefab = floorPrefabs[Random.Range(0, floorPrefabs.Length)];
+            if (!spawnedStartFloor)
+            {
+                floorPrefab = startFloorPrefab;
+                spawnedStartFloor = true;
+            }
+            else
+            {
+                floorPrefab = floorPrefabs[Random.Range(0, floorPrefabs.Length)];
+            }
+            
             GameObject wallPrefab = wallPrefabs[Random.Range(0, wallPrefabs.Length)];
 
             switch (kv.Value)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -12,9 +13,31 @@ public class Unit : MonoBehaviour
 
     private Vector3 targetPosistion;
 
+    private UnitMovement unitMovement;
+    [SerializeField] private Tile currentTile;
+
+    private void Start()
+    {
+        unitMovement = new();
+
+        currentTile = GridManager.instance.GetStartTile();
+
+        transform.position = currentTile.transform.position;
+        targetPosistion = transform.position;
+    }
+
     public void Move(Vector3 targetPosistion)
     {
         this.targetPosistion = targetPosistion;
+    }
+
+    public void GoToTile(Tile destinationTile)
+    {
+        if (unitMovement.GetNeighbourList(currentTile).Contains(destinationTile))
+        {
+            Move(destinationTile.transform.position);
+            currentTile = destinationTile;
+        }
     }
 
     private void Update()

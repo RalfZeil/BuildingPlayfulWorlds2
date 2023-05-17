@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour
     public static TurnManager Instance;
 
     private int turnNumber = 1;
+    private bool isPlayerTurn = true;
 
     private void Awake()
     {
@@ -16,11 +17,17 @@ public class TurnManager : MonoBehaviour
     public void NextTurn()
     {
         turnNumber++;
+        isPlayerTurn = !isPlayerTurn;
         EventManager<int>.RaiseEvent(EventType.OnUpdateTurn, turnNumber);
     }
 
     public int GetTurnNumber()
     {
         return turnNumber;
+    }
+
+    public bool IsPlayerTurn()
+    {
+        return isPlayerTurn;
     }
 }

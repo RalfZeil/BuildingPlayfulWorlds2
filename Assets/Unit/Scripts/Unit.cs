@@ -9,9 +9,11 @@ public class Unit : MonoBehaviour, IInteractable
     [SerializeField] private float rotateSpeed = 20f;
     [SerializeField] private float stoppingDistance = 0.1f;
 
+    private int maxHealth = 100;
+    private int health;
+
     private Vector3 targetPosistion;
     private UnitMovement unitMovement;
-
 
     public Tile currentTile { get; private set; }
     [SerializeField] private bool isPlayerUnit;
@@ -31,6 +33,7 @@ public class Unit : MonoBehaviour, IInteractable
         targetPosistion = transform.position;
 
         actionPoints = maxActionPoints;
+        health = maxHealth;
     }
 
     private void OnEnable()
@@ -86,14 +89,25 @@ public class Unit : MonoBehaviour, IInteractable
 
     private void ResetActionPoints(int turnNumber)
     {
-        actionPoints = maxActionPoints;
+        if(!isPlayerUnit && !TurnManager.Instance.IsPlayerTurn() ||
+            isPlayerUnit && TurnManager.Instance.IsPlayerTurn())
+        {
+            actionPoints = maxActionPoints;
+        }
     }
 
     public void Interact(Unit unit)
     {
         if(unit != this)
         {
-            UnitActionSystem.instance.HandleSelectedUnit(this);
+            if (unit.isPlayerUnit)
+            {
+                UnitActionSystem.instance.HandleSelectedUnit(this);
+            }
+            else if (unitMovement.GetNeighbourList(currentTile).Contains(unit.currentTile))
+            {
+                unit.TakeDamage(30);
+            }
         }
     }
 
@@ -101,4 +115,15 @@ public class Unit : MonoBehaviour, IInteractable
     {
         
     }
+
+    public bool IsPlayerUnit()
+    {
+        return isPlayerUnit;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+    }
+
 }

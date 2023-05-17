@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5256638589087577635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5256638589087577633}
+  - component: {fileID: 5256638589087577634}
+  m_Layer: 0
+  m_Name: DungeonGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5256638589087577633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256638589087577635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5256638589087577634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256638589087577635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c64a3799c47fac4598fabca674acf46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorPrefabs:
+  - {fileID: 5902791839899655459, guid: 8408e922fbd46c94297b21e5c5c411ea, type: 3}
+  - {fileID: 653952220584728955, guid: 83d541c18fbfa924eab96510754c823d, type: 3}
+  - {fileID: 777848833164616385, guid: bf92ad18858a91f409a633bb9fc03e3a, type: 3}
+  - {fileID: 8079918613115794382, guid: 2dbefae53112a604881cdae5f9273e6c, type: 3}
+  wallPrefabs:
+  - {fileID: 6076052970623944313, guid: 18fc4cd40074b3446bc145dc5c36efaf, type: 3}
+  - {fileID: 8908019286483145603, guid: 95137f779efe45147b874a764a5387f2, type: 3}
+  - {fileID: 183854912968139782, guid: 8d65fc420eb8ef64fae88777e956a334, type: 3}
+  startFloorPrefab: {fileID: 8079918613115794382, guid: 94324351176a68745b58396eaf268a8c,
+    type: 3}
+  gridWidth: 20
+  gridHeight: 20
+  minRoomSize: 1
+  maxRoomSize: 2
+  numRooms: 10
+  scale: 6
+  allInstantiatedPrefabs: []

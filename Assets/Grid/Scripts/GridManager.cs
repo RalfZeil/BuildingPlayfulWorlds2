@@ -80,11 +80,14 @@ public class GridManager : MonoBehaviour
 
     public Tile GetTile(int x, int y)
     {
-        if (grid[x, y] == null)
+        try
+        {
+            return grid[x, y];
+        }
+        catch
         {
             return null;
         }
-        return grid[x, y];
     }
 
     public Tile GetStartTile()

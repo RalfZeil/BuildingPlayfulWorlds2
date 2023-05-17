@@ -186,11 +186,4 @@ public class DungeonGenerator : MonoBehaviour
             allInstantiatedPrefabs.Add(obj);
         }
     }
-
-    private void GenerateGrid()
-    {
-    }
-
-
-
 }

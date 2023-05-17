@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitActionSystem : MonoBehaviour
@@ -19,9 +16,12 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.PlayerInputManager.playerInput.PlayerActionMap.Interact.WasPerformedThisFrame())
+        if (TurnManager.Instance.IsPlayerTurn())
         {
-            MouseWorld.InteractWithClickedObject(selectedUnit);
+            if (GameManager.PlayerInputManager.playerInput.PlayerActionMap.Interact.WasPerformedThisFrame())
+            {
+                MouseWorld.InteractWithClickedObject(selectedUnit);
+            }
         }
 
         UpdateActionPoints();
@@ -29,6 +29,11 @@ public class UnitActionSystem : MonoBehaviour
 
     public void HandleSelectedUnit(Unit newUnit)
     {
+        if(newUnit.IsPlayerUnit() == false)
+        {
+            return;
+        }
+
         selectedUnit.isSelected = false;
 
         selectedUnit = newUnit;

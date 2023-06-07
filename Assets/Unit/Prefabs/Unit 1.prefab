@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 1235868055844874439}
   - component: {fileID: 4803948589067588895}
   m_Layer: 0
-  m_Name: Unit
+  m_Name: Unit 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -615,6 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350f154482171174cb47e4cdb0a88bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
 --- !u!1 &1235868055937444040
 GameObject:
   m_ObjectHideFlags: 3

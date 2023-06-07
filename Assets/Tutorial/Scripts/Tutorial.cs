@@ -24,8 +24,8 @@ public class Tutorial : MonoBehaviour
 
         steps.Add(new TutorialStep("Rotate Camera", "Use the A&D keys on the keyboard"));
         steps.Add(new TutorialStep("Zoom camera", "Use the scroll wheel to zoom in and out"));
-        steps.Add(new TutorialStep("Move a Unit", "Click on a tile next to the unit to move it there"));
-        steps.Add(new TutorialStep("Change Unit", "Click on another unit to switch current selected unit"));
+        steps.Add(new TutorialStep("Move an Unit", "Click on a tile next to the unit to move it there"));
+        steps.Add(new TutorialStep("Attack an unit", "Click on another unit to attack with the current selected unit"));
 
         nextButton.onClick.AddListener(ShowNextTutorial);
         prevButton.onClick.AddListener(ShowPrevTutorial);

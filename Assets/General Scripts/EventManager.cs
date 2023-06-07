@@ -8,6 +8,7 @@ public enum EventType
     OnUnitChange = 1,
     OnInteracted = 2,
     OnUpdateTurn = 3,
+    OnUnitDeath  = 4,
 
 }
 

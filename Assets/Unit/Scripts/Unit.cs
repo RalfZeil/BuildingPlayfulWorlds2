@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Unit : MonoBehaviour, IInteractable
 {
@@ -9,11 +11,9 @@ public class Unit : MonoBehaviour, IInteractable
     [SerializeField] private float rotateSpeed = 20f;
     [SerializeField] private float stoppingDistance = 0.1f;
 
-    private int maxHealth = 100;
-    private int health;
-
     private Vector3 targetPosistion;
     private UnitMovement unitMovement;
+    private UnitHealthSystem unitHealthSystem;
 
     public Tile currentTile { get; private set; }
     [SerializeField] private bool isPlayerUnit;
@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour, IInteractable
     private void Start()
     {
         unitMovement = new();
+        unitHealthSystem = GetComponent<UnitHealthSystem>();
 
         currentTile = GridManager.instance.GetStartTile();
 
@@ -33,12 +34,24 @@ public class Unit : MonoBehaviour, IInteractable
         targetPosistion = transform.position;
 
         actionPoints = maxActionPoints;
-        health = maxHealth;
     }
 
     private void OnEnable()
     {
         EventManager<int>.AddListener(EventType.OnUpdateTurn, ResetActionPoints);
+        EventManager<Unit>.AddListener(EventType.OnUnitDeath, OnUnitDeath);
+    }
+
+    private void OnUnitDeath(Unit unit)
+    {
+        if(unit == this)
+        {
+            Debug.Log("Dieded");
+        }
+        else
+        {
+            Debug.Log("Gaming");
+        }
     }
 
     private void OnDisable()
@@ -100,13 +113,23 @@ public class Unit : MonoBehaviour, IInteractable
     {
         if(unit != this)
         {
-            if (unit.isPlayerUnit)
+            if (isPlayerUnit)
             {
                 UnitActionSystem.instance.HandleSelectedUnit(this);
             }
             else if (unitMovement.GetNeighbourList(currentTile).Contains(unit.currentTile))
             {
-                unit.TakeDamage(30);
+                if(unit.actionPoints > 0)
+                {
+                    //Other unit that interacts attacks
+                    unit.unitAnimator.StartAttackAnimation();
+                    unit.RemoveActionPoint(1);
+                    unit.transform.forward = (transform.position - unit.transform.position).normalized; ;
+
+                    //This unit gets damage
+                    unitHealthSystem.Damage(40);
+                    
+                }
             }
         }
     }
@@ -120,10 +143,4 @@ public class Unit : MonoBehaviour, IInteractable
     {
         return isPlayerUnit;
     }
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-    }
-
 }

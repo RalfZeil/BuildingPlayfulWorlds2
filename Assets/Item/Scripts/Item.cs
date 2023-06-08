@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour, IPickupable, IInteractable
@@ -7,6 +5,7 @@ public class Item : MonoBehaviour, IPickupable, IInteractable
     public Texture2D icon;
     public System.Action UseItem;
     public string itemName;
+    public int attackDamage;
 
     public void HighLight()
     {

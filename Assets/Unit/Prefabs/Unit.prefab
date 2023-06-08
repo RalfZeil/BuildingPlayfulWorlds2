@@ -532,6 +532,7 @@ GameObject:
   - component: {fileID: 1235868055844874438}
   - component: {fileID: 1235868055844874439}
   - component: {fileID: 4803948589067588895}
+  - component: {fileID: 1691530794}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -588,8 +589,11 @@ MonoBehaviour:
   moveSpeed: 4
   rotateSpeed: 20
   stoppingDistance: 0.1
+  attackDamage: 20
+  currentTile: {fileID: 0}
   isPlayerUnit: 1
   isSelected: 0
+  maxActionPoints: 2
 --- !u!114 &1235868055844874439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,6 +619,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350f154482171174cb47e4cdb0a88bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
+  itemDrops: []
+--- !u!114 &1691530794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235868055844874434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6d7dbe2030226a4ca9172ee1ef7f1af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollPrefab: {fileID: 1235868055844874437, guid: 6f5bce7b49fa489488ec03e2b0b023dd,
+    type: 3}
 --- !u!1 &1235868055937444040
 GameObject:
   m_ObjectHideFlags: 3
@@ -947,7 +968,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3654445248353054927}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

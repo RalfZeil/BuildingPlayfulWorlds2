@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Unit : MonoBehaviour, IInteractable
 {
@@ -15,21 +17,27 @@ public class Unit : MonoBehaviour, IInteractable
     private UnitMovement unitMovement;
     private UnitHealthSystem unitHealthSystem;
 
-    public Tile currentTile { get; private set; }
+    [SerializeField] private int attackDamage = 10;
+
+    public Tile currentTile;
     [SerializeField] private bool isPlayerUnit;
 
     public bool isSelected;
 
-    private int maxActionPoints = 2;
+    [SerializeField] private int maxActionPoints = 2;
     private int actionPoints;
+
 
     private void Start()
     {
         unitMovement = new();
         unitHealthSystem = GetComponent<UnitHealthSystem>();
 
-        currentTile = GridManager.instance.GetStartTile();
-
+        if (isPlayerUnit)
+        {
+            currentTile = GridManager.instance.GetStartTile();
+        }
+        
         transform.position = currentTile.transform.position;
         targetPosistion = transform.position;
 
@@ -40,11 +48,21 @@ public class Unit : MonoBehaviour, IInteractable
     {
         EventManager<int>.AddListener(EventType.OnUpdateTurn, ResetActionPoints);
         EventManager<Unit>.AddListener(EventType.OnUnitDeath, OnUnitDeath);
+
+        if (isPlayerUnit)
+        {
+            EventManager<Item>.AddListener(EventType.OnItemPickup, SetAttackDamageFromItem);
+        }
     }
 
     private void OnUnitDeath(Unit unit)
     {
-        if(unit == this)
+        if (unit.isPlayerUnit)
+        {
+            SceneManager.LoadScene(3);
+        }
+
+        if (unit == this)
         {
             Debug.Log("Dieded");
         }
@@ -69,6 +87,7 @@ public class Unit : MonoBehaviour, IInteractable
         if (unitMovement.GetNeighbourList(currentTile).Contains(destinationTile))
         {
             Move(destinationTile.transform.position);
+            RemoveActionPoint(1);
             currentTile = destinationTile;
         }
     }
@@ -113,23 +132,39 @@ public class Unit : MonoBehaviour, IInteractable
     {
         if(unit != this)
         {
-            if (isPlayerUnit)
-            {
-                UnitActionSystem.instance.HandleSelectedUnit(this);
-            }
-            else if (unitMovement.GetNeighbourList(currentTile).Contains(unit.currentTile))
+            if (unitMovement.GetNeighbourList(currentTile).Contains(unit.currentTile))
             {
                 if(unit.actionPoints > 0)
                 {
                     //Other unit that interacts attacks
                     unit.unitAnimator.StartAttackAnimation();
                     unit.RemoveActionPoint(1);
-                    unit.transform.forward = (transform.position - unit.transform.position).normalized; ;
+                    unit.transform.forward = (transform.position - unit.transform.position).normalized;
 
                     //This unit gets damage
-                    unitHealthSystem.Damage(40);
+                    unitHealthSystem.Damage(unit.attackDamage);
+
+                    EventManager<Unit>.RaiseEvent(EventType.OnTakeDamage, this);
                     
                 }
+            }
+        }
+    }
+
+    public void AttackUnit(Unit unit)
+    {
+        if (unitMovement.GetNeighbourList(currentTile).Contains(unit.currentTile))
+        {
+            if (unit.actionPoints > 0)
+            {
+                //Other unit that interacts attacks
+                unit.unitAnimator.StartAttackAnimation();
+                unit.RemoveActionPoint(1);
+                unit.transform.forward = (transform.position - unit.transform.position).normalized; ;
+
+                //This unit gets damage
+                unitHealthSystem.Damage(10);
+
             }
         }
     }
@@ -142,5 +177,13 @@ public class Unit : MonoBehaviour, IInteractable
     public bool IsPlayerUnit()
     {
         return isPlayerUnit;
+    }
+
+    private void SetAttackDamageFromItem(Item item)
+    {
+        if(item.attackDamage > attackDamage)
+        {
+            attackDamage = item.attackDamage;
+        }
     }
 }

@@ -25,7 +25,6 @@ public class Tile : MonoBehaviour, IInteractable
         if(unit.GetActionPoints() > 0 && unit.currentTile != this)
         {
             unit.GoToTile(this);
-            unit.RemoveActionPoint(1);
         }
     }
 

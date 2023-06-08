@@ -12,7 +12,10 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private GameObject[] floorPrefabs;
     [SerializeField] private GameObject[] wallPrefabs;
     [SerializeField] private GameObject startFloorPrefab;
+    [SerializeField] private GameObject enemyFloorPrefab;
+
     private bool spawnedStartFloor = false;
+    private int enemiesAmount = 5;
 
     #region Settings
     [SerializeField] private int gridWidth = 100;
@@ -31,7 +34,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private List<Room> roomList = new();
     [SerializeField] private List<GameObject> allInstantiatedPrefabs = new();
 
-    private void Start()
+    private void Awake()
     {
         Generate();
     }
@@ -150,7 +153,7 @@ public class DungeonGenerator : MonoBehaviour
             {
                 for (int z = -1; z <= 1; z++)
                 {
-                    //if(Mathf.Abs(x) == Mathf.Abs(z)) { continue; }
+                    if(Mathf.Abs(x) == Mathf.Abs(z)) { continue; }
                     Vector3Int newPos = kv + new Vector3Int(x, 0, z);
                     if (dungeon.ContainsKey(newPos)) { continue; }
                     dungeon.Add(newPos, TileType.Wall);
@@ -169,18 +172,32 @@ public class DungeonGenerator : MonoBehaviour
             if (!spawnedStartFloor)
             {
                 floorPrefab = startFloorPrefab;
-                spawnedStartFloor = true;
+                
             }
             else
             {
                 floorPrefab = floorPrefabs[Random.Range(0, floorPrefabs.Length)];
+                
             }
             
             GameObject wallPrefab = wallPrefabs[Random.Range(0, wallPrefabs.Length)];
 
             switch (kv.Value)
             {
-                case TileType.Floor: obj = Instantiate(floorPrefab, kv.Key * scale, Quaternion.identity, transform); break;
+                case TileType.Floor: 
+                    
+                    if (enemiesAmount > 0 && spawnedStartFloor && (Random.Range(0, 9) == 0))
+                    {
+                        obj = Instantiate(enemyFloorPrefab, kv.Key * scale, Quaternion.identity, transform);
+                        enemiesAmount -= 1;
+                    }
+                    else
+                    {
+                        obj = Instantiate(floorPrefab, kv.Key * scale, Quaternion.identity, transform);
+                        spawnedStartFloor = true;
+                    }
+                    
+                    break;
                 case TileType.Wall: obj = Instantiate(wallPrefab, kv.Key * scale, Quaternion.identity, transform); break;
             }
             allInstantiatedPrefabs.Add(obj);

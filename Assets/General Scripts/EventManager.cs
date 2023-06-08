@@ -9,7 +9,7 @@ public enum EventType
     OnInteracted = 2,
     OnUpdateTurn = 3,
     OnUnitDeath  = 4,
-
+    OnTakeDamage  = 5,
 }
 
 public static class EventManager<T>

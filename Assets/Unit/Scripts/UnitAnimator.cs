@@ -13,7 +13,19 @@ public class UnitAnimator : MonoBehaviour
 
     private void Start()
     {
-        EventManager<Item>.AddListener(EventType.OnItemPickup, StartPickupAnimation);
+        if (GetComponent<Unit>().IsPlayerUnit())
+        {
+            EventManager<Item>.AddListener(EventType.OnItemPickup, StartPickupAnimation);
+        }
+
+    }
+
+    private void OnDestroy()
+    {
+        if (GetComponent<Unit>().IsPlayerUnit())
+        {
+            EventManager<Item>.RemoveListener(EventType.OnItemPickup, StartPickupAnimation);
+        }
     }
 
     public void SetWalking(bool walking)

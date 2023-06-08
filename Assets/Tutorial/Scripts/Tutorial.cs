@@ -22,10 +22,11 @@ public class Tutorial : MonoBehaviour
     {
         steps = new List<TutorialStep>();
 
-        steps.Add(new TutorialStep("Rotate Camera", "Use the A&D keys on the keyboard"));
-        steps.Add(new TutorialStep("Zoom camera", "Use the scroll wheel to zoom in and out"));
-        steps.Add(new TutorialStep("Move an Unit", "Click on a tile next to the unit to move it there"));
-        steps.Add(new TutorialStep("Attack an unit", "Click on another unit to attack with the current selected unit"));
+        steps.Add(new TutorialStep("Rotate Camera", "Use the A&D keys on the keyboard."));
+        steps.Add(new TutorialStep("Zoom camera", "Use the scroll wheel to zoom in and out."));
+        steps.Add(new TutorialStep("Move an Unit", "Click on a tile next to the unit to move it there. Costs one action point."));
+        steps.Add(new TutorialStep("Attack an unit", "Click on another unit to attack with the current selected unit. Costs one action point."));
+        steps.Add(new TutorialStep("Pickup Item", "Click on a dropped weapon to pick it up. Stronger weapons will be equipped automatically. Costs one action point."));
 
         nextButton.onClick.AddListener(ShowNextTutorial);
         prevButton.onClick.AddListener(ShowPrevTutorial);
